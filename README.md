@@ -2,26 +2,32 @@
 
 Wiki communautaire français non officiel pour **Crime Simulator**.
 
-Objectif : centraliser les mécaniques, stratégies, secrets, routes, équipements, compétences, Golden Cards, véhicules, heists, chimie et progression 100 % dans un site simple à consulter.
+Objectif : centraliser les mécaniques, stratégies, secrets, cartes, équipements, compétences, Golden Cards, véhicules, heists, chimie et progression 100 % dans un site clair et rapide à consulter.
 
 ## Site
 
-La page du wiki est dans `index.html` et est conçue pour être publiée avec **GitHub Pages**.
+Le wiki est publié avec **GitHub Pages** :
 
-## Contenu actuel
+**https://zaklyon.github.io/crime_simulator/**
 
-- plan de progression et économie ;
-- 25 compétences ;
-- 24 Golden Cards ;
-- Abilities et vouchers ;
-- outils et upgrades de planque ;
-- zones Rural, Lakeside, Texas, Rural Arizona et Ashen Creek ;
-- vol de voitures ;
-- recettes de chimie à 100 % ;
-- heists ;
-- techniques avancées et secrets ;
-- objectif 100 % / succès ;
-- recherche et checklists sauvegardées localement dans le navigateur.
+Le site est maintenant organisé en vraies pages :
+
+- `index.html` — accueil ;
+- `guides/progression.html` — progression, économie et inventaire ;
+- `guides/skills.html` — 25 compétences ;
+- `guides/golden-cards.html` — 24 Golden Cards ;
+- `guides/tools.html` — outils et planque ;
+- `guides/maps.html` — cartes, maisons, VIP et heists ;
+- `guides/vehicles.html` — vol de véhicules ;
+- `guides/chemistry.html` — recettes de chimie ;
+- `guides/secrets.html` — techniques et mécaniques peu expliquées ;
+- `guides/achievements.html` — checklist des 65 succès Steam.
+
+Les styles et interactions communes se trouvent dans `assets/`.
+
+## Design
+
+Le site vise un rendu **wiki gaming éditorial**, sobre et lisible : navigation persistante, hiérarchie typographique, tableaux filtrables et checklists enregistrées localement dans le navigateur.
 
 ## Contribuer
 
@@ -46,4 +52,4 @@ Référence de contenu initiale : **Crime Simulator v1.57a**.
 
 ---
 
-Ce projet est communautaire et non affilié aux développeurs ou éditeurs de Crime Simulator.
+Projet communautaire non affilié aux développeurs ou éditeurs de Crime Simulator.
