@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   const root=inGuide?'../':'./';
   const page=document.body.dataset.page||'home';
 
+  if(!document.querySelector('link[href*="v4.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href=root+'assets/v4.css';document.head.appendChild(l);}
+  if(!document.querySelector('script[src*="v4.js"]')){const s=document.createElement('script');s.src=root+'assets/v4.js';document.body.appendChild(s);}
+
   if(!document.querySelector('link[rel="manifest"]')){
     const manifest=document.createElement('link'); manifest.rel='manifest'; manifest.href=root+'manifest.webmanifest'; document.head.appendChild(manifest);
     const icon=document.createElement('link'); icon.rel='icon'; icon.href=root+'assets/icon.svg'; icon.type='image/svg+xml'; document.head.appendChild(icon);
@@ -36,10 +39,12 @@ document.addEventListener('DOMContentLoaded',()=>{
       anchor.insertAdjacentElement('afterend',a);
     }
   };
+  addNavAfter('[data-nav="progression"]','xp','XP & Leveling rapide','xp-fast.html');
   addNavAfter('[data-nav="tools"]','furniture','Meubles','furniture.html');
   addNavAfter('[data-nav="furniture"]','vouchers','Vouchers','vouchers.html');
   addNavAfter('[data-nav="maps"]','vip','Objets VIP','vip-items.html');
   addNavAfter('[data-nav="vip"]','heists','Braquages','heists.html');
+  addNavAfter('[data-nav="secrets"]','fast','Fast Techs & Bugs','fast-techs.html');
   document.querySelectorAll('[data-nav]').forEach(a=>{ if(a.dataset.nav===page)a.classList.add('current'); });
 
   const sidebar=document.querySelector('.sidebar');
@@ -56,10 +61,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   const index=[
     ['Accueil','Vue générale, préparateur de sortie et accès rapide','', 'home démarrage'],
     ['Progression','Quota, crédits, ordre d’achat et inventaire','guides/progression.html','quota credits slots début'],
+    ['XP & Leveling rapide','Reader, Bookstand, téléphones, jobs, requests et farm','guides/xp-fast.html','xp level leveling farm reader bookstand telephone payphone jobs requests challenges'],
     ['Compétences','Les 25 skills et leurs priorités','guides/skills.html','skills reader strongman perception interrogator'],
     ['Golden Cards','Les 24 cartes, effets et combinaisons','guides/golden-cards.html','cards blind deadline diamond silent xp'],
     ['Outils & planque','Lockpick, hack, stun, scanner et équipement','guides/tools.html','outils lockpick bobby pin remote hack stun gun scanner'],
-    ['Meubles','Catalogue des meubles, effets et conditions','guides/furniture.html','furniture tapis course treadmill bookstand bench voucher machine gold stack'],
+    ['Meubles','Catalogue, déblocages et tracker des meubles verrouillés','guides/furniture.html','furniture meubles tapis treadmill bookstand bench voucher gold stack unlock locked'],
     ['Vouchers','Random Gift, Special Ability et Voucher Machine','guides/vouchers.html','voucher random gift special ability ability machine'],
     ['Cartes & maisons','Rural, Lakeside, Texas, Arizona et Ashen Creek','guides/maps.html','maps houses 101 103 208 209 211 212 301 302 304'],
     ['Objets VIP','Tracker des VIP connus par cible','guides/vip-items.html','vip items gaming pc tv coffre scooter'],
@@ -67,6 +73,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     ['Véhicules','Door Drill, hotwire, réparation et vente','guides/vehicles.html','cars voiture hotwire drill trunkload'],
     ['Chimie','Compact Lab et recettes 100 %','guides/chemistry.html','chemistry chimie viper omega breaking bad'],
     ['Secrets & techniques','Raccourcis, coffre, fenêtres, police et extraction','guides/secrets.html','tips secrets coffre safe glass knife police'],
+    ['Fast Techs & Bugs','Cheese, routes rapides, exploits suivis et statut des patches','guides/fast-techs.html','fast tech bug exploit glitch cheese terminal diamond ladder candy bowl gas chain'],
     ['65 succès','Checklist Steam complète','guides/achievements.html','achievements success steam 100 completionist'],
   ];
   const searchBtn=document.createElement('button'); searchBtn.className='global-search-btn'; searchBtn.type='button'; searchBtn.innerHTML='<span class="search-icon">⌕</span><span>Rechercher</span><kbd>Ctrl K</kbd>';
@@ -77,7 +84,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   const render=(q='')=>{
     const terms=q.toLowerCase().trim().split(/\s+/).filter(Boolean);
     current=index.filter(x=>terms.every(t=>(x[0]+' '+x[1]+' '+x[3]).toLowerCase().includes(t))).slice(0,9); active=0;
-    results.innerHTML=current.length?current.map((x,i)=>`<a class="command-result ${i===0?'selected':''}" href="${resolve(x[2])}" data-i="${i}"><span class="command-dot"></span><span><b>${x[0]}</b><small>${x[1]}</small></span><span class="command-go">↗</span></a>`).join(''):'<div class="command-empty">Aucun résultat. Essaie “209”, “voucher”, “VIP” ou “Texas”.</div>';
+    results.innerHTML=current.length?current.map((x,i)=>`<a class="command-result ${i===0?'selected':''}" href="${resolve(x[2])}" data-i="${i}"><span class="command-dot"></span><span><b>${x[0]}</b><small>${x[1]}</small></span><span class="command-go">↗</span></a>`).join(''):'<div class="command-empty">Aucun résultat. Essaie “XP”, “209”, “voucher”, “VIP”, “Texas” ou “bug”.</div>';
   };
   const select=n=>{ if(!current.length)return; active=(n+current.length)%current.length; results.querySelectorAll('.command-result').forEach((el,i)=>el.classList.toggle('selected',i===active)); results.querySelector('.selected')?.scrollIntoView({block:'nearest'}); };
   const openSearch=()=>{modal.classList.add('open');render();setTimeout(()=>input.focus(),30)};
