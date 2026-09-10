@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   const root=inGuide?'../':'./';
   const page=document.body.dataset.page||'home';
 
-  // PWA metadata + favicon on every static page.
   if(!document.querySelector('link[rel="manifest"]')){
     const manifest=document.createElement('link'); manifest.rel='manifest'; manifest.href=root+'manifest.webmanifest'; document.head.appendChild(manifest);
     const icon=document.createElement('link'); icon.rel='icon'; icon.href=root+'assets/icon.svg'; icon.type='image/svg+xml'; document.head.appendChild(icon);
@@ -11,7 +10,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   if('serviceWorker' in navigator){ navigator.serviceWorker.register(root+'sw.js').catch(()=>{}); }
 
-  // Local table filtering.
   const search=document.querySelector('[data-table-search]');
   if(search){
     const selector=search.dataset.tableSearch;
@@ -22,17 +20,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   }
 
-  // Persistent checklists.
   document.querySelectorAll('[data-checklist]').forEach(box=>{
     const key='crime-wiki:'+box.dataset.checklist;
     box.checked=localStorage.getItem(key)==='1';
     box.addEventListener('change',()=>{
       localStorage.setItem(key,box.checked?'1':'0');
-      updateAchievementProgress();
+      updateAchievementProgress(); updateLocalChecklistPanel();
     });
   });
 
-  // Extend the static sidebar without duplicating markup across every page.
   const addNavAfter=(selector,id,label,guideFile)=>{
     const anchor=document.querySelector(selector);
     if(anchor && !document.querySelector(`[data-nav="${id}"]`)){
@@ -46,7 +42,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   addNavAfter('[data-nav="vip"]','heists','Braquages','heists.html');
   document.querySelectorAll('[data-nav]').forEach(a=>{ if(a.dataset.nav===page)a.classList.add('current'); });
 
-  // Mobile drawer.
   const sidebar=document.querySelector('.sidebar');
   const bar=document.querySelector('.sitebar-inner');
   if(sidebar && bar){
@@ -58,7 +53,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     shade.addEventListener('click',close); sidebar.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
   }
 
-  // Global command/search palette.
   const index=[
     ['Accueil','Vue générale, préparateur de sortie et accès rapide','', 'home démarrage'],
     ['Progression','Quota, crédits, ordre d’achat et inventaire','guides/progression.html','quota credits slots début'],
@@ -92,7 +86,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   input.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();select(active+1)}if(e.key==='ArrowUp'){e.preventDefault();select(active-1)}if(e.key==='Enter'&&current[active]) location.href=resolve(current[active][2]);});
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();modal.classList.contains('open')?closeSearch():openSearch()}if(e.key==='Escape'){closeSearch();document.body.classList.remove('nav-open')}});
 
-  // Reading memory / Continue card.
   if(page!=='home'){
     const title=document.querySelector('h1')?.textContent?.trim()||document.title;
     localStorage.setItem('crime-wiki:last',JSON.stringify({title,url:location.pathname.split('/').pop(),time:Date.now()}));
@@ -101,15 +94,26 @@ document.addEventListener('DOMContentLoaded',()=>{
     try{const last=JSON.parse(localStorage.getItem('crime-wiki:last'));if(holder&&last){holder.hidden=false;holder.querySelector('b').textContent=last.title;holder.querySelector('a').href='guides/'+last.url;}}catch(e){}
   }
 
-  // Achievement progress, available on home and the achievements page.
+  function achievementDone(){let done=0;for(let i=1;i<=65;i++){if(localStorage.getItem('crime-wiki:a'+String(i).padStart(2,'0'))==='1')done++;}return done;}
   function updateAchievementProgress(){
-    let done=0; for(let i=1;i<=65;i++){if(localStorage.getItem('crime-wiki:a'+String(i).padStart(2,'0'))==='1')done++;}
+    const done=achievementDone();
     document.querySelectorAll('[data-ach-progress]').forEach(el=>el.textContent=done+'/65');
     document.querySelectorAll('[data-ach-bar]').forEach(el=>el.style.width=(done/65*100)+'%');
   }
+  function updateLocalChecklistPanel(){
+    const panel=document.querySelector('[data-local-check-progress]'); if(!panel)return;
+    const boxes=[...document.querySelectorAll('[data-checklist]')], done=boxes.filter(x=>x.checked).length;
+    panel.querySelector('b').textContent=done+' / '+boxes.length;
+    panel.querySelector('i').style.width=(boxes.length?done/boxes.length*100:0)+'%';
+  }
   updateAchievementProgress();
 
-  // Mission loadout planner on the homepage.
+  if((page==='achievements'||page==='vip') && document.querySelector('.page-head')){
+    const label=page==='achievements'?'Progression succès':'VIP cochés';
+    const p=document.createElement('div');p.className='check-progress';p.dataset.localCheckProgress='';p.innerHTML=`<span>${label}</span><b>0 / 0</b><div class="progress-track"><i></i></div>`;
+    document.querySelector('.page-head').appendChild(p); updateLocalChecklistPanel();
+  }
+
   const target=document.getElementById('plannerTarget'), planner=document.getElementById('plannerResult');
   if(target&&planner){
     const plans={
@@ -124,9 +128,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     target.addEventListener('change',draw); draw();
   }
 
-  // Tiny polish: copy direct page link from article headers.
   if(page!=='home'){
     const head=document.querySelector('.page-head');
     if(head){const actions=document.createElement('div');actions.className='page-actions';actions.innerHTML='<button type="button" class="copy-link">⛓ Copier le lien</button><span class="verified-chip">FIELD GUIDE</span>';head.appendChild(actions);actions.querySelector('button').addEventListener('click',async e=>{try{await navigator.clipboard.writeText(location.href);e.currentTarget.textContent='✓ Lien copié';setTimeout(()=>e.currentTarget.textContent='⛓ Copier le lien',1300)}catch(_){}});}
   }
+
+  let installEvent=null;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault(); installEvent=e;
+    const btn=document.createElement('button');btn.className='install-btn';btn.type='button';btn.textContent='＋ Installer le wiki';
+    const host=document.querySelector('.sitebar-inner'); if(host){host.appendChild(btn);btn.addEventListener('click',async()=>{if(!installEvent)return;installEvent.prompt();await installEvent.userChoice;installEvent=null;btn.remove();});}
+  });
 });
