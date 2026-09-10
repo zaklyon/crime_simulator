@@ -15,16 +15,26 @@ document.addEventListener('DOMContentLoaded',()=>{
     box.addEventListener('change',()=>localStorage.setItem(key,box.checked?'1':'0'));
   });
 
-  // Furniture was split into its own catalogue after the multi-page redesign.
-  // Inject the link into older page sidebars so every guide gets the new section
-  // without duplicating navigation maintenance in each static HTML file.
+  const inGuides=location.pathname.includes('/guides/');
+
+  // Extra sections added after the first multi-page redesign are injected here
+  // so the static sidebars stay consistent across every guide page.
   const toolsLink=document.querySelector('[data-nav="tools"]');
   if(toolsLink && !document.querySelector('[data-nav="furniture"]')){
     const furniture=document.createElement('a');
     furniture.dataset.nav='furniture';
     furniture.textContent='Meubles';
-    furniture.href=location.pathname.includes('/guides/') ? 'furniture.html' : 'guides/furniture.html';
+    furniture.href=inGuides ? 'furniture.html' : 'guides/furniture.html';
     toolsLink.insertAdjacentElement('afterend',furniture);
+  }
+
+  const mapsLink=document.querySelector('[data-nav="maps"]');
+  if(mapsLink && !document.querySelector('[data-nav="heists"]')){
+    const heists=document.createElement('a');
+    heists.dataset.nav='heists';
+    heists.textContent='Braquages';
+    heists.href=inGuides ? 'heists.html' : 'guides/heists.html';
+    mapsLink.insertAdjacentElement('afterend',heists);
   }
 
   const page=document.body.dataset.page;
