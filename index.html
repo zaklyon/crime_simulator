@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Crime Simulator Wiki FR — guides, cartes, compétences, outils, véhicules, chimie, succès et secrets.">
+<meta name="description" content="Crime Simulator Wiki FR — wiki communautaire, guides, outils de préparation, cartes, VIP, braquages, compétences et succès.">
 <title>Crime Simulator Wiki FR</title>
 <link rel="stylesheet" href="assets/style.css"><script defer src="assets/app.js"></script>
 </head>
@@ -18,31 +18,44 @@
 </aside>
 <main class="content">
 <section class="hero-home">
-<div><div class="kicker">Crime Simulator · Wiki français</div><h1>Tout comprendre avant d’entrer dans la maison.</h1><p class="summary">Un wiki pensé comme un vrai manuel de jeu : quoi débloquer, quoi acheter, comment lire une cible, où trouver les objets importants et comment finir les objectifs les plus pénibles sans perdre une nuit entière.</p><div class="meta"><span>Référence : v1.57a</span><span>Spoilers complets</span><span>PC / Steam</span></div></div>
-<div class="hero-stats"><div class="stat"><b>25</b><span>compétences</span></div><div class="stat"><b>24</b><span>Golden Cards</span></div><div class="stat"><b>65</b><span>succès Steam</span></div><div class="stat"><b>9</b><span>slots d’inventaire max</span></div></div>
+<div><div class="kicker">Crime Simulator · Field Companion FR</div><h1>Prépare le casse.<br>Pas les excuses.</h1><p class="summary">Le wiki communautaire pensé comme un outil de terrain : tu prépares ta sortie, retrouves une maison en deux secondes, coches tes VIP et succès, compares ton équipement et gardes les meilleures routes sous la main.</p><div class="meta"><span>Référence v1.57a</span><span>Spoilers assumés</span><span>PC / Steam</span><span>Installable hors ligne</span></div><div class="hero-status"><i></i><span>Wiki opérationnel · recherche globale avec <strong>Ctrl+K</strong></span></div></div>
+<div class="hero-stats"><div class="stat"><b>25</b><span>compétences documentées</span></div><div class="stat"><b>24</b><span>Golden Cards</span></div><div class="stat"><b>65</b><span>succès suivis · <strong data-ach-progress>0/65</strong></span><div class="progress-track"><i data-ach-bar></i></div></div><div class="stat"><b>2</b><span>gros braquages guidés</span></div><div class="stat"><b>14+</b><span>pages et outils</span></div></div>
 </section>
 
-<div class="section-title"><h2>Par où commencer</h2><p>Les quatre pages à lire en premier</p></div>
-<div class="article-grid">
-<a class="article-card" href="guides/progression.html"><span class="num">Guide 01</span><h3>Progression</h3><p>Ordre de déblocage, économie, quota, crédits, inventaire et priorités d’achat.</p><span class="arrow">Lire le guide →</span></a>
-<a class="article-card" href="guides/skills.html"><span class="num">Guide 02</span><h3>Compétences</h3><p>Les 25 skills, ce qu’elles changent réellement et lesquelles prendre en priorité.</p><span class="arrow">Voir les compétences →</span></a>
-<a class="article-card" href="guides/maps.html"><span class="num">Guide 03</span><h3>Cartes & maisons</h3><p>Rural, Lakeside, Texas, Arizona et Ashen Creek : les lieux qui comptent vraiment.</p><span class="arrow">Explorer les lieux →</span></a>
-<a class="article-card" href="guides/secrets.html"><span class="num">Guide 04</span><h3>Secrets & techniques</h3><p>Raccourcis, mini-jeux, extraction, police, fenêtres, interrogatoire et optimisation.</p><span class="arrow">Voir les techniques →</span></a>
+<div class="quick-panel">
+<div><div class="kicker">Accès rapide</div><h3>Le wiki se cherche comme un outil.</h3><p>Appuie sur <strong>Ctrl+K</strong> n’importe où sur le site et tape “209”, “Texas”, “Voucher”, “VIP”, “Strongman” ou “Breaking Bad”. Tu peux naviguer au clavier et ouvrir le résultat avec Entrée.</p><div id="continueCard" class="continue-card" hidden><span>Reprendre là où tu étais</span><b>Dernière page</b><a href="#">Continuer →</a></div></div>
+<div><div class="kicker">Sur téléphone</div><h3>Installe-le comme une appli.</h3><p>Le site est maintenant un PWA : depuis Chrome/Edge mobile ou desktop, tu peux l’installer et le garder dans ta barre d’applications. Les pages principales restent consultables hors ligne après chargement.</p></div>
 </div>
 
-<div class="section-title"><h2>Base de connaissances</h2><p>Pour retrouver une info rapidement</p></div>
+<div class="section-title"><h2>Préparateur de sortie</h2><p>Choisis l’objectif de ta nuit</p></div>
+<section class="mission-planner">
+<div class="planner-bar"><label for="plannerTarget">Mission</label><select id="plannerTarget"><option value="house">Maison / cambriolage classique</option><option value="lakeside">Lakeside / VIP & Golden Cards</option><option value="texas">Texas Train Station</option><option value="ai">AI Research Center</option><option value="car">Vol de voiture</option><option value="vip">Chasse aux objets VIP</option></select></div>
+<div class="planner-output" id="plannerResult"></div>
+</section>
+
+<div class="section-title"><h2>Commencer par le bon guide</h2><p>Les pages qui changent vraiment une run</p></div>
 <div class="article-grid">
-<a class="article-card" href="guides/golden-cards.html"><span class="num">Collection</span><h3>Golden Cards</h3><p>Les 24 cartes, leurs effets et les meilleures combinaisons selon ta run.</p><span class="arrow">Ouvrir →</span></a>
-<a class="article-card" href="guides/tools.html"><span class="num">Équipement</span><h3>Outils & planque</h3><p>Lockpicks, hack, stun, scanner, mobilier et achats vraiment rentables.</p><span class="arrow">Ouvrir →</span></a>
-<a class="article-card" href="guides/furniture.html"><span class="num">Planque</span><h3>Meubles</h3><p>Catalogue des meubles, effets, conditions de déblocage et priorités d’achat.</p><span class="arrow">Ouvrir →</span></a>
-<a class="article-card" href="guides/heists.html"><span class="num">Heists</span><h3>Braquages</h3><p>Texas Train Station et AI Research Center : préparation, routes, sécurité et extraction.</p><span class="arrow">Voir les guides →</span></a>
-<a class="article-card" href="guides/vehicles.html"><span class="num">Système</span><h3>Véhicules</h3><p>Door Drill, hotwire, réparation, essence, coffre et succès liés aux voitures.</p><span class="arrow">Ouvrir →</span></a>
-<a class="article-card" href="guides/chemistry.html"><span class="num">Endgame</span><h3>Chimie</h3><p>Compact Lab, stabilité et toutes les recettes connues pour atteindre 100 %.</p><span class="arrow">Ouvrir →</span></a>
-<a class="article-card" href="guides/achievements.html"><span class="num">100 %</span><h3>65 succès</h3><p>Checklist complète et raccourcis pour les succès qui demandent une vraie préparation.</p><span class="arrow">Ouvrir →</span></a>
-<a class="article-card" href="https://github.com/zaklyon/crime_simulator"><span class="num">Communauté</span><h3>Contribuer</h3><p>Une erreur, un nouveau spawn, une astuce ou une mise à jour ? Le wiki est ouvert aux contributions.</p><span class="arrow">GitHub →</span></a>
+<a class="article-card" href="guides/progression.html"><span class="num">Guide 01 · Fondations</span><h3>Progression</h3><p>Quota, crédits, slots, ordre d’achat et comment éviter de claquer ton argent dans des gadgets trop tôt.</p><span class="arrow">Construire une bonne run →</span></a>
+<a class="article-card" href="guides/maps.html"><span class="num">Guide 02 · Terrain</span><h3>Cartes & maisons</h3><p>Rural, Lakeside, Texas, Arizona, Ashen Creek et les cibles qui valent réellement ton temps.</p><span class="arrow">Ouvrir la carte mentale →</span></a>
+<a class="article-card" href="guides/heists.html"><span class="num">Guide 03 · Heists</span><h3>Braquages</h3><p>Texas Train et AI Research Center : plans, sécurités, route, équipement et ordre d’extraction.</p><span class="arrow">Préparer le gros coup →</span></a>
+<a class="article-card" href="guides/secrets.html"><span class="num">Guide 04 · Maîtrise</span><h3>Secrets & techniques</h3><p>Mini-jeux, coffres, fenêtres, police, extraction et petites mécaniques que le jeu explique mal.</p><span class="arrow">Apprendre les raccourcis →</span></a>
 </div>
 
-<section class="prose"><h2>La philosophie du wiki</h2><p>Crime Simulator récompense moins la vitesse brute que la préparation. Les meilleurs gains arrivent quand <strong>accès, information, capacité d’inventaire et contrôle des PNJ</strong> travaillent ensemble. Le but de ce site est donc d’expliquer les systèmes, pas seulement de donner une liste d’objets à voler.</p><div class="note">Les prix, spawns et certains pourcentages peuvent changer avec les patches. Les mécaniques stables sont présentées comme telles ; les observations communautaires restent signalées comme approximatives.</div></section>
-<footer class="page-footer"><span>Crime Simulator Wiki FR · non officiel</span><span>Mis à jour pour la v1.57a</span></footer>
+<div class="section-title"><h2>Base de connaissances</h2><p>Tout ce qu’on consulte pendant une partie</p></div>
+<div class="article-grid">
+<a class="article-card" href="guides/skills.html"><span class="num">Build</span><h3>25 compétences</h3><p>Ce que chaque skill change réellement et lesquelles donnent le plus de valeur tôt.</p><span class="arrow">Voir les skills →</span></a>
+<a class="article-card" href="guides/golden-cards.html"><span class="num">Collection</span><h3>Golden Cards</h3><p>Les 24 cartes, leurs effets et les combinaisons à viser selon le type de run.</p><span class="arrow">Voir les cartes →</span></a>
+<a class="article-card" href="guides/furniture.html"><span class="num">Planque</span><h3>Meubles</h3><p>Catalogue, effets, conditions et priorités : du tapis de course au Gold Stack.</p><span class="arrow">Équiper la planque →</span></a>
+<a class="article-card" href="guides/vouchers.html"><span class="num">Récompenses</span><h3>Vouchers</h3><p>Random Gift, Special Ability et Voucher Machine : quoi garder et quand les utiliser.</p><span class="arrow">Comprendre les vouchers →</span></a>
+<a class="article-card" href="guides/vip-items.html"><span class="num">Tracker</span><h3>Objets VIP</h3><p>Une checklist par maison pour retrouver rapidement les VIP connus pendant une run.</p><span class="arrow">Traquer les VIP →</span></a>
+<a class="article-card" href="guides/tools.html"><span class="num">Loadout</span><h3>Outils & équipement</h3><p>Lockpicks, hack, scanner, stun, équipement d’endgame et les achats qui se rentabilisent.</p><span class="arrow">Composer le kit →</span></a>
+<a class="article-card" href="guides/vehicles.html"><span class="num">Système</span><h3>Véhicules</h3><p>Door Drill, hotwire, réparation, carburant, coffre et succès liés aux voitures.</p><span class="arrow">Voler proprement →</span></a>
+<a class="article-card" href="guides/chemistry.html"><span class="num">Endgame</span><h3>Chimie</h3><p>Compact Lab, stabilité et recettes connues pour atteindre 100 %.</p><span class="arrow">Ouvrir le labo →</span></a>
+<a class="article-card" href="guides/achievements.html"><span class="num">100 %</span><h3>65 succès Steam</h3><p>Checklist persistante et raccourcis pour les objectifs qui demandent une vraie préparation.</p><span class="arrow">Voir la checklist →</span></a>
+<a class="article-card" href="https://github.com/zaklyon/crime_simulator"><span class="num">Communauté</span><h3>Contribuer</h3><p>Un nouveau spawn, une correction, une capture ou une découverte ? Le wiki est conçu pour évoluer avec les joueurs.</p><span class="arrow">GitHub →</span></a>
+</div>
+
+<section class="prose"><h2>Pas un wiki décoratif</h2><p>Le but est que ce site devienne le truc que tu gardes ouvert sur le deuxième écran pendant la partie. <strong>Recherche instantanée, checklists persistantes, guides de braquage, tracker VIP, préparateur de loadout et mode hors ligne</strong> : chaque ajout doit faire gagner du temps en jeu.</p><div class="note">Les spawns, prix et comportements qui viennent de la communauté sont signalés comme tels. On préfère une info incomplète mais honnête à une fausse certitude.</div></section>
+<footer class="page-footer"><span>Crime Simulator Wiki FR · projet communautaire non officiel</span><span>Field Companion · v1.57a</span></footer>
 </main></div>
 </body></html>
