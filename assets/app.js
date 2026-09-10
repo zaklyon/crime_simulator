@@ -15,6 +15,18 @@ document.addEventListener('DOMContentLoaded',()=>{
     box.addEventListener('change',()=>localStorage.setItem(key,box.checked?'1':'0'));
   });
 
+  // Furniture was split into its own catalogue after the multi-page redesign.
+  // Inject the link into older page sidebars so every guide gets the new section
+  // without duplicating navigation maintenance in each static HTML file.
+  const toolsLink=document.querySelector('[data-nav="tools"]');
+  if(toolsLink && !document.querySelector('[data-nav="furniture"]')){
+    const furniture=document.createElement('a');
+    furniture.dataset.nav='furniture';
+    furniture.textContent='Meubles';
+    furniture.href=location.pathname.includes('/guides/') ? 'furniture.html' : 'guides/furniture.html';
+    toolsLink.insertAdjacentElement('afterend',furniture);
+  }
+
   const page=document.body.dataset.page;
   document.querySelectorAll('[data-nav]').forEach(a=>{
     if(a.dataset.nav===page)a.classList.add('current');
