@@ -1,0 +1,13 @@
+{
+  "name": "Crime Simulator Wiki FR",
+  "short_name": "Crime Wiki",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101113",
+  "theme_color": "#101113",
+  "description": "Wiki communautaire français et outil de terrain pour Crime Simulator.",
+  "icons": [
+    {"src":"assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
