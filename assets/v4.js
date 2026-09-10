@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded',()=>{
+(()=>{
+const init=()=>{
   const xp=document.querySelector('[data-xp-planner]');
   if(xp){
     const select=xp.querySelector('[data-xp-profile]'), out=xp.querySelector('[data-xp-output]');
@@ -15,11 +16,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   const dash=document.querySelector('[data-unlock-dashboard]');
   if(dash){
     const inputs=[...dash.querySelectorAll('[data-stat]')];
-    inputs.forEach(i=>{const k='crime-wiki:unlock:'+i.dataset.stat;const saved=localStorage.getItem(k);if(saved!==null){if(i.type==='checkbox')i.checked=saved==='1';else i.value=saved;}i.addEventListener('input',()=>{localStorage.setItem(k,i.type==='checkbox'?(i.checked?'1':'0'):i.value);recalc();});i.addEventListener('change',()=>{localStorage.setItem(k,i.type==='checkbox'?(i.checked?'1':'0'):i.value);recalc();});});
-    const val=k=>{const i=inputs.find(x=>x.dataset.stat===k);return !i?0:(i.type==='checkbox'?(i.checked?1:0):(parseInt(i.value||'0',10)||0));};
+    let filter='all';
     const rows=[...document.querySelectorAll('#furnitureTable tbody tr[data-req]')];
+    const buttons=[...document.querySelectorAll('[data-furniture-filter]')];
     const parse=s=>s.split(';').filter(Boolean).map(x=>{const [k,n]=x.split(':');return [k,Number(n||1)]});
     const labels={jobs:'jobs',requests:'requests',vip:'VIP volés',wins:'boucles gagnées',credits:'crédits gagnés dans la boucle',items:'objets volés',challenges:'challenges',furniture:'meubles placés',expansion:'extension',dlc:'DLC Ashen Creek'};
+    const val=k=>{const i=inputs.find(x=>x.dataset.stat===k);return !i?0:(i.type==='checkbox'?(i.checked?1:0):(parseInt(i.value||'0',10)||0));};
+    const applyFilter=()=>rows.forEach(r=>{const match=filter==='all'||r.dataset.state===filter||(filter==='top'&&Number(r.dataset.rank||99)<=2);r.classList.toggle('hidden',!match)});
     const recalc=()=>{
       let unlocked=0;const roadmap=[];
       rows.forEach(r=>{const req=parse(r.dataset.req);const missing=req.filter(([k,n])=>val(k)<n);const chip=r.querySelector('[data-lock-status]');const isOpen=!missing.length;r.dataset.state=isOpen?'open':'locked';if(isOpen)unlocked++;
@@ -32,10 +35,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       const list=dash.querySelector('[data-unlock-roadmap]');list.innerHTML=roadmap.slice(0,8).map((x,i)=>`<div class="unlock-roadmap-item"><b>${x.name}</b><span>${x.gap}</span><em>#${String(i+1).padStart(2,'0')} à viser</em></div>`).join('')||'<div class="note">Tout ce qui est suivi ici est débloqué avec tes valeurs actuelles.</div>';
       applyFilter();
     };
-    let filter='all';
-    const buttons=[...document.querySelectorAll('[data-furniture-filter]')];
-    const applyFilter=()=>rows.forEach(r=>{const match=filter==='all'||r.dataset.state===filter||(filter==='top'&&Number(r.dataset.rank||99)<=2);r.classList.toggle('hidden',!match)});
+    inputs.forEach(i=>{const k='crime-wiki:unlock:'+i.dataset.stat;const saved=localStorage.getItem(k);if(saved!==null){if(i.type==='checkbox')i.checked=saved==='1';else i.value=saved;}const save=()=>{localStorage.setItem(k,i.type==='checkbox'?(i.checked?'1':'0'):i.value);recalc();};i.addEventListener('input',save);i.addEventListener('change',save);});
     buttons.forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.furnitureFilter;buttons.forEach(x=>x.classList.toggle('active',x===b));applyFilter();}));
     recalc();
   }
-});
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
