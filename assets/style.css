@@ -101,6 +101,11 @@ td strong{color:#fff}
 .callout-grid b{display:block;font-family:'Source Serif 4',serif;font-size:18px;margin-bottom:4px}
 .callout-grid span{color:#8b9093;font-size:12px}
 
+.steps-list{list-style:none;counter-reset:step;margin:18px 0 28px;padding:0;border-top:1px solid var(--line)}
+.steps-list li{counter-increment:step;position:relative;padding:15px 0 15px 46px;border-bottom:1px solid var(--line-soft);color:#b7b9ba}
+.steps-list li::before{content:counter(step);position:absolute;left:0;top:14px;width:27px;height:27px;display:grid;place-items:center;border:1px solid #66572d;border-radius:50%;color:var(--accent);font-size:11px;font-weight:700;background:#171612}
+.steps-list strong{color:#fff}
+
 .searchbox{margin:18px 0 22px;position:relative}
 .searchbox input{width:100%;padding:12px 14px;border:1px solid var(--line);background:#151719;color:#eee;outline:none;border-radius:4px}
 .searchbox input:focus{border-color:#5d6266}
