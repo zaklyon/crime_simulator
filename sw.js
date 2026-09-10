@@ -1,5 +1,5 @@
-const CACHE='crime-wiki-v3';
-const CORE=['./','./index.html','./assets/style.css','./assets/app.js','./assets/icon.svg','./guides/progression.html','./guides/skills.html','./guides/golden-cards.html','./guides/tools.html','./guides/furniture.html','./guides/maps.html','./guides/heists.html','./guides/vehicles.html','./guides/chemistry.html','./guides/achievements.html','./guides/secrets.html','./guides/vouchers.html','./guides/vip-items.html'];
+const CACHE='crime-wiki-v4';
+const CORE=['./','./index.html','./assets/style.css','./assets/v4.css','./assets/app.js','./assets/v4.js','./assets/icon.svg','./guides/progression.html','./guides/xp-fast.html','./guides/skills.html','./guides/golden-cards.html','./guides/tools.html','./guides/furniture.html','./guides/maps.html','./guides/heists.html','./guides/vehicles.html','./guides/chemistry.html','./guides/achievements.html','./guides/secrets.html','./guides/fast-techs.html','./guides/vouchers.html','./guides/vip-items.html'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
