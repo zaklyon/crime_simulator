@@ -1,0 +1,30 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="The Hideout — tableau d'opérations pour organiser les runs Crime Simulator entre potes."><title>Ce soir — The Hideout</title><link rel="stylesheet" href="assets/style.css"><script defer src="assets/app.js"></script><script defer src="assets/crew.js"></script></head><body data-page="crew" class="crew-page">
+<header class="sitebar"><div class="sitebar-inner"><a class="brand" href="./"><span class="brand-mark">H</span><span>THE HIDEOUT<small>Crime Simulator Crew Companion</small></span></a><nav class="toplinks"><a href="./">QG</a><a class="active" href="crew.html">Ce soir</a><a href="guides/heists.html">Missions</a><a href="guides/xp-fast.html">Progression</a></nav></div></header>
+<div class="shell"><aside class="sidebar"></aside><main class="content">
+<div class="breadcrumbs"><a href="./">The Hideout</a> / Ce soir</div>
+<header class="page-head"><h1>Le plan de ce soir.</h1><p class="lede">Prépare la run, assigne les priorités et garde une vraie liste de choses à faire au lieu de finir la nuit à cambrioler au hasard. Tout est sauvegardé dans ton navigateur.</p></header>
+
+<section class="crew-hud">
+  <div class="crew-panel"><label>Objectif principal</label><input data-objective-input placeholder="Ex. Débloquer Powerlifting Bench + faire 5 VIP"><label style="margin-top:14px">Crew</label><input data-crew-input placeholder="Zak, Younes, ..."><label style="margin-top:14px">Note de session</label><textarea data-session-note placeholder="Ex. On commence Lakeside puis Texas si on a le plan."></textarea></div>
+  <div>
+    <div class="crew-stats"><div class="crew-stat"><small>Total</small><b data-stat-all>0</b></div><div class="crew-stat"><small>Ce soir</small><b data-stat-tonight>0</b></div><div class="crew-stat"><small>Terminées</small><b data-stat-done>0</b></div></div>
+    <div class="crew-panel" style="margin-top:12px"><label>Progression de l'opération</label><div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><b data-crew-progress-text>0% terminé</b><span style="color:#656d70;font-size:11px">Local au navigateur</span></div><div class="crew-progress"><i data-crew-progress></i></div></div>
+  </div>
+</section>
+
+<section><div class="ops-section-head"><h2>Plans rapides</h2><span>charge un objectif en 1 clic</span></div><div class="preset-row"><button class="preset-btn accent" data-preset="xp">XP Grind</button><button class="preset-btn" data-preset="vip">VIP Hunt</button><button class="preset-btn" data-preset="furniture">Unlock meubles</button><button class="preset-btn" data-preset="texas">Texas Prep</button><button class="preset-btn" data-preset="achievements">Achievements</button></div></section>
+
+<form class="task-add" data-add-task><input placeholder="Ajouter une tâche perso : acheter le scanner, trouver le plan Texas, faire 3 jobs..."><button type="submit">+ Ajouter</button></form>
+
+<section class="task-board" data-task-board>
+  <div class="task-column"><div class="task-column-head"><span class="task-column-title">Ce soir</span><span class="task-count" data-count="tonight">0</span></div><div class="task-list" data-list="tonight"></div></div>
+  <div class="task-column"><div class="task-column-head"><span class="task-column-title">Plus tard</span><span class="task-count" data-count="later">0</span></div><div class="task-list" data-list="later"></div></div>
+  <div class="task-column"><div class="task-column-head"><span class="task-column-title">Terminé</span><span class="task-count" data-count="done">0</span></div><div class="task-list" data-list="done"></div></div>
+</section>
+
+<div class="crew-tools"><button class="crew-tool" data-copy-plan>Copier le plan pour Discord</button><button class="crew-tool" data-clear-done>Nettoyer les terminées</button><button class="crew-tool" data-reset-board>Vider le board</button></div>
+<div class="crew-share"><b>Astuce crew</b><p>Le bouton « Copier le plan » transforme le board en texte propre à coller directement dans Discord. Pour l'instant le suivi est local sur chaque navigateur ; on pourra faire une vraie synchro multi-joueurs plus tard si vous l'utilisez souvent.</p></div>
+
+<section class="ops-section"><div class="ops-section-head"><h2>Besoin d'intel ?</h2><span>ouvre le bon module</span></div><div class="ops-module-grid"><a class="ops-module" href="guides/xp-fast.html"><div class="module-id">PROGRESSION</div><h3>XP rapide</h3><p>Routes, Reader, Bookstand, jobs, téléphones et requests.</p><span class="module-link">Ouvrir →</span></a><a class="ops-module" href="guides/furniture.html"><div class="module-id">UNLOCKS</div><h3>Meubles verrouillés</h3><p>Entre ta progression et vois ce qu'il te reste à faire.</p><span class="module-link">Ouvrir →</span></a><a class="ops-module" href="guides/heists.html"><div class="module-id">MISSIONS</div><h3>Braquages</h3><p>Texas Train et AI Research : préparation et routes.</p><span class="module-link">Ouvrir →</span></a><a class="ops-module" href="guides/fast-techs.html"><div class="module-id">TECH</div><h3>Fast Techs</h3><p>Cheese, raccourcis, bugs suivis et statut des patches.</p><span class="module-link">Ouvrir →</span></a></div></section>
+<footer class="page-footer"><span>The Hideout · Crime Simulator Crew Companion</span><a href="./">Retour au QG →</a></footer>
+</main></div></body></html>
