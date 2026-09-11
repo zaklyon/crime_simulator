@@ -48,6 +48,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   const mutate=(id,fn)=>{const t=load();const i=t.findIndex(x=>x.id===id);if(i<0)return;fn(t[i],t,i);save(t);refresh();};
   const remove=id=>{save(load().filter(x=>x.id!==id));refresh();};
   const stats=()=>{const t=load(),done=t.filter(x=>x.status==='done').length;return{all:t.length,done,pct:t.length?Math.round(done/t.length*100):0,tonight:t.filter(x=>x.status==='tonight').length,later:t.filter(x=>x.status==='later').length}};
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const encodePlan=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  const decodePlan=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return JSON.parse(decodeURIComponent(escape(atob(s))));};
 
   function refresh(){renderBoard();renderHome();}
 
@@ -62,8 +65,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   function renderBoard(){
     const board=document.querySelector('[data-task-board]');if(!board)return;
-    const tasks=load();
-    const s=stats();
+    const tasks=load();const s=stats();
     const all=document.querySelector('[data-stat-all]');if(all)all.textContent=s.all;
     const tonight=document.querySelector('[data-stat-tonight]');if(tonight)tonight.textContent=s.tonight;
     const done=document.querySelector('[data-stat-done]');if(done)done.textContent=s.done;
@@ -85,7 +87,19 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   }
 
-  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const shared=location.hash.startsWith('#plan=')?location.hash.slice(6):'';
+  if(shared){
+    try{
+      const data=decodePlan(shared);
+      if(data&&Array.isArray(data.tasks)&&confirm('Un plan The Hideout a été partagé avec toi. L’importer dans ton board ?')){
+        save(data.tasks.map(x=>({...x,id:x.id||uid()})));
+        if(data.objective)localStorage.setItem(OBJ,data.objective);
+        if(data.crew)localStorage.setItem(CREW,data.crew);
+        if(data.note)localStorage.setItem(NOTE,data.note);
+        history.replaceState(null,'',location.pathname+location.search);
+      }
+    }catch(e){}
+  }
 
   const objective=document.querySelector('[data-objective-input]');
   if(objective){objective.value=localStorage.getItem(OBJ)||'';objective.addEventListener('input',()=>{localStorage.setItem(OBJ,objective.value.trim());renderHome();});}
@@ -109,6 +123,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     const t=load(),obj=localStorage.getItem(OBJ)||'Opération Crime Simulator',crewNames=localStorage.getItem(CREW)||'';
     const lines=[`THE HIDEOUT — ${obj}`,crewNames?`Crew : ${crewNames}`:'', '', 'CE SOIR',...t.filter(x=>x.status==='tonight').map(x=>'☐ '+x.text),'','PLUS TARD',...t.filter(x=>x.status==='later').map(x=>'• '+x.text),'','TERMINÉ',...t.filter(x=>x.status==='done').map(x=>'✓ '+x.text)].filter((x,i,a)=>x!==''||a[i-1]!=='' );
     try{await navigator.clipboard.writeText(lines.join('\n'));const old=e.currentTarget.textContent;e.currentTarget.textContent='✓ Plan copié';setTimeout(()=>e.currentTarget.textContent=old,1400);}catch(err){}
+  });
+  document.querySelector('[data-share-link]')?.addEventListener('click',async e=>{
+    const payload={objective:localStorage.getItem(OBJ)||'',crew:localStorage.getItem(CREW)||'',note:localStorage.getItem(NOTE)||'',tasks:load()};
+    const url=location.origin+location.pathname+'#plan='+encodePlan(payload);
+    try{await navigator.clipboard.writeText(url);const old=e.currentTarget.textContent;e.currentTarget.textContent='✓ Lien crew copié';setTimeout(()=>e.currentTarget.textContent=old,1600);}catch(err){}
   });
 
   refresh();
