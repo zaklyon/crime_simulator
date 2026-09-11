@@ -1,12 +1,12 @@
 {
-  "name": "Crime Simulator Wiki FR",
-  "short_name": "Crime Wiki",
+  "name": "The Hideout — Crime Simulator Crew Companion",
+  "short_name": "The Hideout",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#101113",
-  "theme_color": "#101113",
-  "description": "Wiki communautaire français et outil de terrain pour Crime Simulator.",
+  "background_color": "#090b0c",
+  "theme_color": "#090b0c",
+  "description": "Compagnon de crew pour Crime Simulator : opérations, tâches, progression, missions, VIP et intel.",
   "icons": [
     {"src":"assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
   ]
